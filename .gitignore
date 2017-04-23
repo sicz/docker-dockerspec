@@ -1,0 +1,7 @@
+# https://git-scm.com/docs/gitignore
+
+# Info about running containers
+.container_*
+
+# Local Makefile
+docker.local.mk
