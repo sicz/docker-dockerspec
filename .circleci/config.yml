@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: docker:17.03
-    working_directory: ~/docker-baseimage-alpine
+    working_directory: ~/docker-dockerspec
     environment:
       - MAKEFLAGS=--no-print-directory
     steps:
@@ -27,4 +27,6 @@ jobs:
       - run:
           name: Run tests
           command: |
+            ls -l
+            ls -l spec
             make test
