@@ -29,4 +29,5 @@ jobs:
           command: |
             ls -l
             ls -l spec
+            make run
             make test
