@@ -19,7 +19,6 @@ jobs:
           command: |
             curl -sSL https://github.com/SICZ/Mk/archive/master.tar.gz | tar -xzf -
             mv Mk-master ~/Mk
-            touch Dockerfile
             make rebuild
             make run
             env DOCKER_CONTAINER_ID=$(cat .container_id) rspec --format doc
