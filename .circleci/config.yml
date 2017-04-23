@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:17.03
+      - image: sicz/dockerspec:17.03.1-ce
     working_directory: ~/docker-dockerspec
     environment:
       - MAKEFLAGS=--no-print-directory
@@ -24,10 +24,8 @@ jobs:
           name: Build Docker image
           command: |
             make rebuild
+            make run
       - run:
           name: Run tests
           command: |
-            ls -l
-            ls -l spec
-            make run
-            make test
+            env DOCKER_CONTAINER_ID=$(cat .container_id) rspec --format doc
