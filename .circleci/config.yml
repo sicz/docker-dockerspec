@@ -17,7 +17,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Docker version
+          name: Remote Docker engine version
           command: |
             docker version
       - run:
