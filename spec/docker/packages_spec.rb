@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require "docker_helper"
 
-describe "packages" do
+describe "Packages" do
   [
     "git",
     "make",
@@ -9,7 +9,7 @@ describe "packages" do
     "ruby-io-console",
     "ruby-irb",
     "ruby-rdoc",
-    "openssh-client"
+    "openssh-client",
   ].each do |package|
     describe package(package) do
       it { should be_installed }

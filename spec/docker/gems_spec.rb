@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require "docker_helper"
 
-describe "gems" do
+describe "Gems" do
   [
     "docker-api",
     "rspec",
