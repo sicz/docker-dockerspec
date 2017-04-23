@@ -30,10 +30,11 @@ RUN set -x \
   && docker-compose -v \
   ;
 
-# Install git
+# Install packages needed for running tests
 RUN set -x \
   && apk add --no-cache \
       git \
+      make \
   		openssh-client \
   ;
 
@@ -46,7 +47,6 @@ RUN set -x \
       ruby-rdoc \
   && gem install \
       docker-api \
-      #dockerspec \
       rspec \
       serverspec \
   && rspec --version \

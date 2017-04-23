@@ -1,9 +1,10 @@
 # encoding: UTF-8
-require "dockerspec"
+require "docker_helper"
 
 describe "packages" do
   [
     "git",
+    "make",
     "ruby",
     "ruby-io-console",
     "ruby-irb",

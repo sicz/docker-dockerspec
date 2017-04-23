@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require "dockerspec"
+require "docker_helper"
 
 describe "gems" do
   [
