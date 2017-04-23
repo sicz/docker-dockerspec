@@ -2,18 +2,22 @@ version: 2
 jobs:
   build:
     docker:
-      - image: sicz/dockerspec:17.03.1-ce
+      - image: docker:17.03
     working_directory: ~/docker-baseimage-alpine
     environment:
       - MAKEFLAGS=--no-print-directory
     steps:
       - run:
-          name: Set up Environment
+          name: Install packages
           command: |
             apk update
             apk add --no-progress git make openssh-client
       - checkout
       - setup_remote_docker
+      - run:
+          name: Docker Version
+          command: |
+            docker version
       - run:
           name: Run tests
           command: |
@@ -21,4 +25,4 @@ jobs:
             mv Mk-master ~/Mk
             make rebuild
             make run
-            env DOCKER_CONTAINER_ID=$(cat .container_id) rspec --format doc
+            make test
