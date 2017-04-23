@@ -24,7 +24,11 @@ jobs:
           name: Build Docker image
           command: |
             make rebuild
+      - run:
+          name: Run Docker container
+          command: |
             make run
+            make logs
       - run:
           name: Run tests
           command: |
