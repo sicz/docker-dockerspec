@@ -7,13 +7,10 @@ ENV org.label-schema.build-date="%%REFRESHED_AT%%"
 ENV org.label-schema.url="https://alpinelinux.org"
 ENV org.label-schema.vcs-url="https://github.com/%%DOCKER_PROJECT%%/docker-%%DOCKER_NAME%%"
 
-ARG DOCKER_VERSION=%%DOCKERSPEC_VERSION%%
-ARG DOCKER_TARBALL_SHA256=%%DOCKER_TARBALL_SHA256%%
-
 # Install docker
 RUN set -x \
-  && curl -fSL "https://get.docker.com/builds/$(uname -s)/$(uname -m)/docker-${DOCKER_VERSION}.tgz" -o docker.tgz \
-  && echo "${DOCKER_TARBALL_SHA256} *docker.tgz" | sha256sum -c - \
+  && curl -fSL "https://get.docker.com/builds/$(uname -s)/$(uname -m)/docker-%%DOCKER_VERSION%%.tgz" -o docker.tgz \
+  && echo "%%DOCKER_TARBALL_SHA256%% *docker.tgz" | sha256sum -c - \
   && tar -xzvf docker.tgz \
   && mv docker/* /usr/local/bin/ \
   && rmdir docker \
