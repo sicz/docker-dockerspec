@@ -3,7 +3,7 @@ FROM sicz/baseimage-alpine:3.5
 ENV org.label-schema.schema-version="1.0"
 ENV org.label-schema.name="sicz/dockerspec"
 ENV org.label-schema.description="An image intended to run Docker integration tests using RSpec."
-ENV org.label-schema.build-date="2017-04-23T22:06:32Z"
+ENV org.label-schema.build-date="2017-04-23T23:59:39Z"
 ENV org.label-schema.url="https://alpinelinux.org"
 ENV org.label-schema.vcs-url="https://github.com/sicz/docker-dockerspec"
 
