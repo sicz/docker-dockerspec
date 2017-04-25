@@ -1,4 +1,8 @@
 # docker-dockerspec
+
+**This project is not aimed at public consumption.
+It exists to support the development of SICZ containers.**
+
 An image intended to run Docker integration tests using RSpec.
 
 ## RSpec testing frameworks:
