@@ -12,6 +12,7 @@ An image intended to run Docker integration tests using RSpec.
 * https://github.com/zuazo/dockerspec
 
 ## Ideas and sample code:
+* https://www.singlestoneconsulting.com/articles/writing-efficient-infrastructure-tests-with-serverspec
 * https://github.com/tcnksm-sample/test-driven-development-dockerfile
 * https://www.unixdaemon.net/tools/testing-dockerfiles-with-serverspec/
 * https://www.scm-manager.com/2016/10/testing-docker-infrastructure-with-serverspec/
