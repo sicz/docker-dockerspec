@@ -1,42 +1,52 @@
-FROM sicz/baseimage-alpine:%%BASE_IMAGE_TAG%%
+FROM alpine:%%BASE_IMAGE_TAG%%
 
 ENV org.label-schema.schema-version="1.0"
 ENV org.label-schema.name="%%DOCKER_PROJECT%%/%%DOCKER_NAME%%"
 ENV org.label-schema.description="%%DOCKER_DESCRIPTION%%"
 ENV org.label-schema.build-date="%%REFRESHED_AT%%"
-ENV org.label-schema.url="https://alpinelinux.org"
+ENV org.label-schema.url="http://serverspec.org"
 ENV org.label-schema.vcs-url="https://github.com/%%DOCKER_PROJECT%%/docker-%%DOCKER_NAME%%"
 
-# Install docker
-RUN set -x \
-  && curl -fSL "https://get.docker.com/builds/$(uname -s)/$(uname -m)/docker-%%DOCKER_VERSION%%.tgz" -o docker.tgz \
-  && echo "%%DOCKER_TARBALL_SHA256%% *docker.tgz" | sha256sum -c - \
-  && tar -xzvf docker.tgz \
-  && mv docker/* /usr/local/bin/ \
-  && rmdir docker \
-  && rm docker.tgz \
-  && docker -v \
-  ;
-
-# Install docker-compose
-RUN set -x \
+RUN set -ex \
+  # Upgrade system
+  && apk upgrade --no-cache \
+  # Install base image packages
+  && apk add --no-cache \
+      bash \
+      ca-certificates \
+      curl \
+      jq \
+      libressl \
+      runit \
+      su-exec \
+      tini \
+  # Make bash more friendly
+  && echo 'alias ll="ls -al"' >> /etc/bash.bashrc \
+  && echo '. /etc/bash.bashrc' >> /root/.bashrc \
+  && echo '"\e[A": history-search-backward' >> /etc/inputrc \
+  && echo '"\e[B": history-search-forward' >> /etc/inputrc \
+  && echo 'if [ -f ~/.bashrc ]; then . ~/.bashrc; fi' >> /root/.bash_profile \
+  && bash --version \
+  # Install modular Docker entrypoint
+  && curl -fLO https://github.com/sicz/docker-entrypoint/archive/master.tar.gz \
+  && tar xfz master.tar.gz \
+  && cp -r docker-entrypoint-master/config/* / \
+  && rm -rf master.tar.gz docker-entrypoint-master \
+  && chmod +x /docker-entrypoint.sh \
+  # Install Docker and packages needed for running tests
+  && apk add --no-cache \
+      docker \
+      git \
+      make \
+      openssh-client \
+  && docker --version \
+  # Install docker-compose
   && apk add --no-cache python2 py2-pip \
   && pip install --upgrade pip \
   && pip install docker-compose \
   && apk del --no-cache py2-pip \
-  && docker-compose -v \
-  ;
-
-# Install packages needed for running tests
-RUN set -x \
-  && apk add --no-cache \
-      git \
-      make \
-  		openssh-client \
-  ;
-
-# Install rspec
-RUN set -x \
+  && docker-compose --version \
+  # Install rspec
   && apk add --no-cache \
       ruby \
       ruby-io-console \
@@ -50,5 +60,6 @@ RUN set -x \
   && gem list -q serverspec \
   ;
 
+ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
 ENV DOCKER_COMMAND="rspec"
 CMD ["rspec"]

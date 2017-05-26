@@ -1,25 +1,85 @@
 # docker-dockerspec
 
+[![CircleCI Status Badge](https://circleci.com/gh/sicz/docker-dockerspec.svg?style=shield&circle-token=5b2ef1ced1877b03440694e44544e33b70ba74ce)](https://circleci.com/gh/sicz/docker-dockerspec)
+
 **This project is not aimed at public consumption.
 It exists to support the development of SICZ containers.**
 
 An image intended to run Docker integration tests using RSpec.
 
-## RSpec testing frameworks:
-* http://rspec.info
-* http://serverspec.org
-* https://github.com/swipely/docker-api
-* https://github.com/zuazo/dockerspec
+## Contents
 
-## Ideas and sample code:
-* https://www.singlestoneconsulting.com/articles/writing-efficient-infrastructure-tests-with-serverspec
-* https://github.com/tcnksm-sample/test-driven-development-dockerfile
-* https://www.unixdaemon.net/tools/testing-dockerfiles-with-serverspec/
-* https://www.scm-manager.com/2016/10/testing-docker-infrastructure-with-serverspec/
-* https://robots.thoughtbot.com/tdd-your-dockerfiles-with-rspec-and-serverspec
-* https://github.com/samepage-labs/dockerspec
-* https://coderwall.com/p/5xylsg/tdd-for-dockerfile-by-rspec-severspec
-* https://github.com/garethr/docker-spec-example
-* https://blog.codeship.com/testing-rails-application-docker/
+This container only contains essential components:
+- Official [Alpine Linux image](https://store.docker.com/images/alpine) as base system
+- [Docker](https://www.docker.com) provide Docker command line tools
+- [RSpec](http://rspec.info) provide Ruby testing framework
+- [ServerSpec](http://serverspec.org) provide server testing framework for RSpec
+- [DockerSpec](https://github.com/zuazo/dockerspec) provide Docker pluging for ServerSpec
 
-* https://hharnisc.github.io/2016/06/19/integration-testing-with-docker-compose.html
+## Getting started
+
+These instructions will get you a copy of the project up and running on your
+local machine for development and testing purposes. See deployment for notes
+on how to deploy the project on a live system.
+
+### Installing
+
+Clone GitHub repository to your working directory:
+```bash
+git clone https://github.com/sicz/docker-dockerspec
+```
+
+### Usage
+
+Use command `make` to simplify Docker container development tasks:
+```bash
+make all        # Destroy running container, build new image and run tests
+make build      # Build new image
+make refresh    # Refresh Dockerfile
+make rebuild    # Build new image without caching
+make run        # Run container
+make stop       # Stop running container
+make start      # Start stopped container
+make restart    # Restart container
+make status     # Show container status
+make logs       # Show container logs
+make logs-tail  # Connect to container logs
+make shell      # Open shell in running container
+make test       # Run tests
+make rm         # Destroy running container
+```
+
+## Deployment
+
+At first init RSpec configuration for your project:
+```bash
+docker run \
+  -v ${PWD}:/root \
+  -w /root \
+  --rm \
+  sicz/dockerspec --init
+```
+and create your tests in `spec` directory. For inspiration you can look at our
+Docker projects at [GitHub](https://github.com/sicz).
+
+With [sicz/Mk](https://github.com/sicz/Mk) you can test your Docker image with
+simple command:
+```bash
+make test
+```
+
+## Authors
+
+* [Petr Řehoř](https://github.com/prehor) - Initial work.
+
+See also the list of [contributors](https://github.com/sicz/docker-baseimage-alpine/contributors)
+who participated in this project.
+
+## License
+
+This project is licensed under the Apache License, Version 2.0 - see the
+[LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+This Docker image was inspired by [Test Driven Development of Dockerfile](https://github.com/tcnksm-sample/test-driven-development-dockerfile)
