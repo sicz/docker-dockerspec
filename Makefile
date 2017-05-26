@@ -7,10 +7,10 @@ DOCKER_PROJECT		= sicz
 DOCKER_NAME		= dockerspec
 DOCKER_TAG		= ${DOCKERSPEC_VERSION}
 
+DOCKER_RUN_CMD		+= $(DOCKER_SHELL_CMD)
 DOCKER_RUN_OPTS		= $(DOCKER_SHELL_OPTS) \
 			  -v $(CURDIR)/spec:/spec \
 			  -v /var/run/docker.sock:/var/run/docker.sock
-DOCKER_RUN_CMD		+= $(DOCKER_SHELL_CMD)
 
 DOCKER_TEST_FILE	= .circleci/config.yml
 
