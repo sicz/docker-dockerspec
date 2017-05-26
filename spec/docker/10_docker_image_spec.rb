@@ -11,7 +11,7 @@ describe "Operating system" do
   end
 end
 
-describe "Package" do
+describe "Packages" do
   [
     "bash",
     "ca-certificates",
@@ -34,7 +34,7 @@ describe "Package" do
   end
 end
 
-describe "Ruby gem" do
+describe "Ruby gems" do
   [
     "docker-api",
     "rspec",
