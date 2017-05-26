@@ -69,7 +69,7 @@ docker run \
   sicz/dockerspec --init
 ```
 and create your tests in `spec` directory. For inspiration you can look at our
-Docker projects at [GitHub](https://github.com/sicz).
+[Docker projects at GitHub](https://github.com/sicz).
 
 With [sicz/Mk](https://github.com/sicz/Mk) you can test your Docker image with
 simple command:
@@ -91,4 +91,4 @@ This project is licensed under the Apache License, Version 2.0 - see the
 
 ## Acknowledgments
 
-This Docker image was inspired by [Test Driven Development of Dockerfile](https://github.com/tcnksm-sample/test-driven-development-dockerfile)
+This Docker image was inspired by [Test Driven Development of Dockerfile](https://github.com/tcnksm-sample/test-driven-development-dockerfile).
