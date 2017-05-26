@@ -10,20 +10,20 @@ An image intended to run Docker integration tests using RSpec.
 ## Contents
 
 This container only contains essential components:
-- Official [Alpine Linux image](https://store.docker.com/images/alpine) as base system
-- Modular [Docker entrypoint](https://github.com/sicz/docker-entrypoint)
-- [Docker](https://www.docker.com) provides Docker command line tools
-- [RSpec](http://rspec.info) provides Ruby testing framework
-- [ServerSpec](http://serverspec.org) provides server testing framework for RSpec
-- [DockerSpec](https://github.com/zuazo/dockerspec) provides Docker pluging for ServerSpec
-- `bash` as shell
-- `ca-certificates` contains common CA certificates
-- `curl` for transferring data using various protocols
-- `jq` for JSON data parsing
-- `libressl` for PKI and TLS
-- `runit` for service supervision and management
-- `su_exec` for process impersonation
-- `tini` as init process
+* Official [Alpine Linux image](https://store.docker.com/images/alpine) as base system
+* Modular [Docker entrypoint](https://github.com/sicz/docker-entrypoint)
+* [Docker](https://www.docker.com) provides Docker command line tools
+* [RSpec](http://rspec.info) provides Ruby testing framework
+* [ServerSpec](http://serverspec.org) provides server testing framework for RSpec
+* [DockerSpec](https://github.com/zuazo/dockerspec) provides Docker pluging for ServerSpec
+* `bash` as shell
+* `ca-certificates` contains common CA certificates
+* `curl` for transferring data using various protocols
+* `jq` for JSON data parsing
+* `libressl` for PKI and TLS
+* `runit` for service supervision and management
+* `su_exec` for process impersonation
+* `tini` as init process
 
 ## Getting started
 
