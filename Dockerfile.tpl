@@ -2,7 +2,7 @@ FROM sicz/baseimage-alpine:%%BASE_IMAGE_TAG%%
 
 ENV org.label-schema.schema-version="1.0"
 ENV org.label-schema.name="%%DOCKER_PROJECT%%/%%DOCKER_NAME%%"
-ENV org.label-schema.description="An image intended to run Docker integration tests using RSpec."
+ENV org.label-schema.description="%%DOCKER_DESCRIPTION%%"
 ENV org.label-schema.build-date="%%REFRESHED_AT%%"
 ENV org.label-schema.url="https://alpinelinux.org"
 ENV org.label-schema.vcs-url="https://github.com/%%DOCKER_PROJECT%%/docker-%%DOCKER_NAME%%"
@@ -50,6 +50,5 @@ RUN set -x \
   && gem list -q serverspec \
   ;
 
-COPY docker-entrypoint.d /docker-entrypoint.d
-
+ENV DOCKER_COMMAND="rspec"
 CMD ["rspec"]

@@ -50,6 +50,5 @@ RUN set -x \
   && gem list -q serverspec \
   ;
 
-COPY docker-entrypoint.d /docker-entrypoint.d
-
+ENV DOCKER_COMMAND="rspec"
 CMD ["rspec"]
