@@ -12,6 +12,8 @@ DOCKER_RUN_OPTS		= $(DOCKER_SHELL_OPTS) \
 			  -v /var/run/docker.sock:/var/run/docker.sock
 DOCKER_RUN_CMD		+= $(DOCKER_SHELL_CMD)
 
+DOCKER_TEST_FILE	= .circleci/config.yml
+
 .PHONY: all build rebuild deploy run up destroy down clean rm start stop restart
 .PHONY: status logs shell refresh test
 
