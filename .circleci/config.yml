@@ -21,7 +21,8 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            make rebuild
+            make docker-pull
+            make build
       - run:
           name: Run Docker container
           command: |
