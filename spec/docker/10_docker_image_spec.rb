@@ -67,7 +67,7 @@ end
 
 describe "Docker entrypoint file" do
   context "/docker-entrypoint.sh" do
-    it "has set permissions" do
+    it "is installed" do
       expect(file("/docker-entrypoint.sh")).to exist
       expect(file("/docker-entrypoint.sh")).to be_file
       expect(file("/docker-entrypoint.sh")).to be_executable
@@ -83,7 +83,7 @@ describe "Docker entrypoint file" do
     "/docker-entrypoint.d/90-exec-command.sh",
   ].each do |file|
     context file do
-      it "exists" do
+      it "is installed" do
         expect(file(file)).to exist
         expect(file(file)).to be_file
         expect(file(file)).to be_readable
@@ -97,7 +97,7 @@ describe "Configuration file" do
     "/etc/ssl/openssl.cnf",
   ].each do |file|
     context file do
-      it "exists" do
+      it "is installed" do
         expect(file(file)).to exist
         expect(file(file)).to be_file
         expect(file(file)).to be_readable
