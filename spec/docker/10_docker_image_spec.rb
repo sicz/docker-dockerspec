@@ -11,21 +11,7 @@ describe "Operating system" do
   end
 end
 
-describe "Commands" do
-  [
-    "/usr/bin/docker-compose"
-  ].each do |command|
-    context command do
-      it "is installed" do
-        expect(file(command)).to exist
-        expect(file(command)).to be_file
-        expect(file(command)).to be_executable
-      end
-    end
-  end
-end
-
-describe "Packages" do
+describe "Package" do
   [
     "bash",
     "ca-certificates",
@@ -51,7 +37,21 @@ describe "Packages" do
   end
 end
 
-describe "Ruby gems" do
+describe "Command" do
+  [
+    "/usr/bin/docker-compose"
+  ].each do |command|
+    context command do
+      it "is installed" do
+        expect(file(command)).to exist
+        expect(file(command)).to be_file
+        expect(file(command)).to be_executable
+      end
+    end
+  end
+end
+
+describe "Ruby gem" do
   [
     "docker-api",
     "rspec",
@@ -69,6 +69,7 @@ describe "Docker entrypoint file" do
   context "/docker-entrypoint.sh" do
     it "has set permissions" do
       expect(file("/docker-entrypoint.sh")).to exist
+      expect(file("/docker-entrypoint.sh")).to be_file
       expect(file("/docker-entrypoint.sh")).to be_executable
     end
   end
@@ -84,6 +85,7 @@ describe "Docker entrypoint file" do
     context file do
       it "exists" do
         expect(file(file)).to exist
+        expect(file(file)).to be_file
         expect(file(file)).to be_readable
       end
     end
@@ -97,6 +99,7 @@ describe "Configuration file" do
     context file do
       it "exists" do
         expect(file(file)).to exist
+        expect(file(file)).to be_file
         expect(file(file)).to be_readable
       end
     end
