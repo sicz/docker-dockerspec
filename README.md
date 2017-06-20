@@ -56,6 +56,7 @@ make logs-tail  # Connect to container logs
 make shell      # Open shell in running container
 make test       # Run tests
 make rm         # Destroy running container
+make clean      # Destroy running container and clean
 ```
 
 ## Deployment
@@ -81,7 +82,8 @@ make test
 
 * [Petr Řehoř](https://github.com/prehor) - Initial work.
 
-See also the list of [contributors](https://github.com/sicz/docker-baseimage-alpine/contributors)
+See also the list of
+[contributors](https://github.com/sicz/docker-baseimage-alpine/contributors)
 who participated in this project.
 
 ## License
@@ -91,4 +93,5 @@ This project is licensed under the Apache License, Version 2.0 - see the
 
 ## Acknowledgments
 
-This Docker image was inspired by [Test Driven Development of Dockerfile](https://github.com/tcnksm-sample/test-driven-development-dockerfile).
+This Docker image was inspired by
+[Test Driven Development of Dockerfile](https://github.com/tcnksm-sample/test-driven-development-dockerfile).

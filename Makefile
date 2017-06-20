@@ -1,21 +1,25 @@
-ALPINE_VERSION		?= latest
-DOCKERSPEC_VERSION	?= $(ALPINE_VERSION)
+################################################################################
 
-BASE_IMAGE_TAG		= $(ALPINE_VERSION)
+BASEIMAGE_NAME		= $(DOCKER_PROJECT)/baseimage-alpine
+BASEIMAGE_TAG		= 3.6
 
-DOCKER_PROJECT		= sicz
+################################################################################
+
+DOCKER_PROJECT		?= sicz
 DOCKER_NAME		= dockerspec
-DOCKER_TAG		= ${DOCKERSPEC_VERSION}
+DOCKER_TAG		= $(BASEIMAGE_TAG)
+DOCKER_DESCRIPTION	= An image intended to run Docker integration tests using RSpec
+DOCKER_PROJECT_URL	= http://serverspec.org
 
-DOCKER_RUN_CMD		+= $(DOCKER_SHELL_CMD)
-DOCKER_RUN_OPTS		= $(DOCKER_SHELL_OPTS) \
-			  -v $(CURDIR)/spec:/spec \
-			  -v /var/run/docker.sock:/var/run/docker.sock
+DOCKER_RUN_CMD		= $(DOCKER_SHELL_CMD)
+DOCKER_RUN_OPTS		+= $(DOCKER_SHELL_OPTS) \
+			   -v $(CURDIR)/spec:/spec \
+			   -v /var/run/docker.sock:/var/run/docker.sock
 
-DOCKER_TEST_FILE	= .circleci/config.yml
+################################################################################
 
 .PHONY: all build rebuild deploy run up destroy down clean rm start stop restart
-.PHONY: status logs shell refresh test
+.PHONY: status logs shell refresh test clean
 
 all: destroy build deploy logs test
 build: docker-build
@@ -31,5 +35,11 @@ logs-tail: docker-logs-tail
 shell: docker-shell
 refresh: docker-refresh
 test: docker-test
+clean: destroy docker-clean
 
-include ../Mk/docker.container.mk
+################################################################################
+
+DOCKER_MK_DIR		?= ../Mk
+include $(DOCKER_MK_DIR)/docker.container.mk
+
+################################################################################
