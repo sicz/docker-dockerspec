@@ -25,26 +25,44 @@ jobs:
           command: |
             docker version
       - run:
-          name: Build image
+          name: Build Docker image
           command: |
+            cd ${CIRCLE_STAGE/build/.}
             make rebuild
       - run:
-          name: Run container
+          name: Run Docker container
           command: |
+            cd ${CIRCLE_STAGE/build/.}
             make run
             make logs
       # - run:
       #     name: Run tests
       #     command: |
-      #       env DOCKER_CONTAINER_ID=$(cat .container_id) rspec --format doc
+      #       cd ${CIRCLE_STAGE/build/.}
+      #       make rspec DOCKER_RSPEC_FORMAT=doc
       - run:
           name: Run tests
           command: |
-            make test DOCKER_TEST_CMD="--format doc"
+            cd ${CIRCLE_STAGE/build/.}
+            make test DOCKER_RSPEC_FORMAT=doc
       - deploy:
           name: Push image to Docker Hub
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              cd ${CIRCLE_STAGE/build/.}
               docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWD}
               make docker-push
             fi
+
+#   latest:
+#     <<: *build
+#
+#   dev:
+#     <<: *build
+#
+# workflows:
+#   version: 2
+#   build:
+#     jobs:
+#       - latest
+#       - dev

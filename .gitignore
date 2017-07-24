@@ -5,3 +5,7 @@
 
 # Info about running containers
 .container_id
+
+
+# Local Makefile
+docker.local.mk
