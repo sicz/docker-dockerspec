@@ -1,25 +1,20 @@
 version: 2
 jobs:
   build:
-    # docker:
-    #   - image: sicz/dockerspec:3.6
-    machine: true
+    docker:
+      - image: sicz/dockerspec:3.6
     working_directory: ~/docker-dockerspec
     environment:
       - MAKEFLAGS=--no-print-directory
     steps:
-      - run:
-          name: Upgrade Docker Engine
-          command: |
-            docker version
-            curl -fsSL https://raw.githubusercontent.com/StefanScherer/docker-init/master/ubuntu/install-docker-ce.sh | sh
       - run:
           name: Set up Environment
           command: |
             curl -sSL https://github.com/SICZ/Mk/archive/master.tar.gz | tar -xzf -
             mv Mk-master ~/Mk
       - checkout
-      # - setup_remote_docker
+      - setup_remote_docker:
+          version: 17.06.0-ce
       - run:
           name: Remote Docker engine version
           command: |
@@ -35,16 +30,11 @@ jobs:
             cd ${CIRCLE_STAGE/build/.}
             make run
             make logs
-      # - run:
-      #     name: Run tests
-      #     command: |
-      #       cd ${CIRCLE_STAGE/build/.}
-      #       make rspec DOCKER_RSPEC_FORMAT=doc
       - run:
           name: Run tests
           command: |
             cd ${CIRCLE_STAGE/build/.}
-            make test DOCKER_RSPEC_FORMAT=doc
+            make rspec DOCKER_RSPEC_FORMAT=doc
       - deploy:
           name: Push image to Docker Hub
           command: |
