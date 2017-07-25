@@ -1,6 +1,6 @@
 ################################################################################
 
-BASEIMAGE_NAME		= $(DOCKER_PROJECT)/baseimage-alpine
+BASEIMAGE_NAME		= alpine
 BASEIMAGE_TAG		?= 3.6
 
 ################################################################################
@@ -12,10 +12,16 @@ DOCKER_TAGS		?= latest
 DOCKER_DESCRIPTION	= An image intended to run Docker image tests using RSpec and ServerSpec
 DOCKER_PROJECT_URL	= http://serverspec.org
 
+DOCKER_BUILD_VARS	+= DOCKER_VERSION
+
 DOCKER_RUN_CMD		= $(DOCKER_SHELL_CMD)
 DOCKER_RUN_OPTS		+= $(DOCKER_SHELL_OPTS) \
 			   -v $(abspath $(DOCKER_HOME_DIR))/spec:/spec \
 			   -v /var/run/docker.sock:/var/run/docker.sock
+
+################################################################################
+
+DOCKER_VERSION		?= 17.06.0-ce
 
 ################################################################################
 

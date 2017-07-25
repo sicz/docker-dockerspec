@@ -3,7 +3,6 @@ require "docker_helper"
 
 describe "Package" do
   [
-    "docker",
     "git",
     "make",
     "openssh-client",
@@ -22,6 +21,7 @@ end
 
 describe "Command" do
   [
+    "/usr/bin/docker",
     "/usr/bin/docker-compose"
   ].each do |command|
     context command do

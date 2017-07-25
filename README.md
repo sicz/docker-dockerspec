@@ -15,7 +15,9 @@ This container only contains essential components:
 * [Docker](https://www.docker.com) provides Docker command line tools
 * [RSpec](http://rspec.info) provides Ruby testing framework
 * [ServerSpec](http://serverspec.org) provides server testing framework for RSpec
-* [DockerSpec](https://github.com/zuazo/dockerspec) provides Docker pluging for ServerSpec
+<!--
+* [DockerSpec](https://github.com/zuazo/dockerspec) provides Docker plugin for ServerSpec
+-->
 * `bash` as shell
 * `ca-certificates` contains common CA certificates
 * `curl` for transferring data using various protocols
