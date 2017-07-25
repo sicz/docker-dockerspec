@@ -19,6 +19,8 @@ DOCKER_RUN_OPTS		+= $(DOCKER_SHELL_OPTS) \
 			   -v $(abspath $(DOCKER_HOME_DIR))/spec:/spec \
 			   -v /var/run/docker.sock:/var/run/docker.sock
 
+DOCKER_SUBDIR		+= devel
+
 ################################################################################
 
 DOCKER_VERSION		?= 17.06.0-ce
@@ -26,7 +28,7 @@ DOCKER_VERSION		?= 17.06.0-ce
 ################################################################################
 
 .PHONY: all build rebuild deploy run up destroy down rm start stop restart
-.PHONY: status logs shell refresh test rspec clean
+.PHONY: status logs shell refresh test clean clean-all
 
 all: destroy build deploy logs test
 build: docker-build
@@ -42,8 +44,12 @@ logs-tail: docker-logs-tail
 shell: docker-shell
 refresh: docker-refresh
 test: docker-test
-rspec: docker-rspec
 clean: destroy docker-clean
+clean-all:
+	@for SUBDIR in . $(DOCKER_SUBDIR); do \
+		cd $(abspath $(DOCKER_HOME_DIR))/$${SUBDIR}; \
+		$(MAKE) clean; \
+	done
 
 ################################################################################
 
