@@ -20,26 +20,26 @@ jobs:
           command: |
             docker version
       - run:
-          name: Build and test development Docker image
-          command: |
-            cd devel
-            make rebuild
-            make run
-            make logs
-            make rspec DOCKER_RSPEC_FORMAT=doc
-      - run:
           name: Build and test latest Docker image
           command: |
-            make rebuild
-            make run
-            make logs
-            make rspec DOCKER_RSPEC_FORMAT=doc
+            make ci-rebuild-and-test DOCKER_TEST_CMD=rspec DOCKER_RSPEC_FORMAT=doc
+      - run:
+          name: Build and test development Docker image
+          working_directory: devel
+          command: |
+            make ci-rebuild-and-test DOCKER_TEST_CMD=rspec DOCKER_RSPEC_FORMAT=doc
       - deploy:
-          name: Push images to Docker Hub
+          name: Push latest Docker image to Docker Hub
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWD}
               make docker-push
-              cd devel
+            fi
+      - deploy:
+          name: Push development Docker image to Docker Hub
+          working_directory: devel
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWD}
               make docker-push
             fi
