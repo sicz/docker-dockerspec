@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: sicz/dockerspec@sha256:ac15e88ddfd8e8b524857e3ccb742bdf0c12385f9de59269e1150474f1312d84
+      - image: sicz/dockerspec@sha256:7e946e59349aae5d9f5c8639fd02d76c9a9e8de1e6dd03013d217f381a033ec2
     working_directory: ~/docker-dockerspec
     environment:
       - MAKEFLAGS=--no-print-directory
