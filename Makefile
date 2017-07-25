@@ -1,14 +1,14 @@
 ################################################################################
 
 BASEIMAGE_NAME		= $(DOCKER_PROJECT)/baseimage-alpine
-BASEIMAGE_TAG		= 3.6
+BASEIMAGE_TAG		?= 3.6
 
 ################################################################################
 
 DOCKER_PROJECT		?= sicz
 DOCKER_NAME		= dockerspec
 DOCKER_TAG		?= $(BASEIMAGE_TAG)
-DOCKER_TAGS		?= latest dev
+DOCKER_TAGS		?= latest
 DOCKER_DESCRIPTION	= An image intended to run Docker image tests using RSpec and ServerSpec
 DOCKER_PROJECT_URL	= http://serverspec.org
 
