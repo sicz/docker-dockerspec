@@ -1,7 +1,10 @@
 ################################################################################
 
-BASEIMAGE_NAME		= alpine
+BASEIMAGE_NAME		= sicz/baseimage-alpine
 BASEIMAGE_TAG		?= 3.6
+
+BUILDERIMAGE_NAME	= BASEIMAGE_NAME
+BUILDERIMAGE_TAG	= BASEIMAGE_TAG
 
 ################################################################################
 
@@ -15,22 +18,28 @@ DOCKER_PROJECT_URL	= http://serverspec.org
 DOCKER_BUILD_VARS	+= DOCKER_VERSION
 
 DOCKER_RUN_CMD		= $(DOCKER_SHELL_CMD)
-DOCKER_RUN_OPTS		+= $(DOCKER_SHELL_OPTS) \
+DOCKER_RUN_OPTS		+= -v /var/run/docker.sock:/var/run/docker.sock \
 			   -v $(abspath $(DOCKER_HOME_DIR))/spec:/spec \
-			   -v /var/run/docker.sock:/var/run/docker.sock
+			   $(DOCKER_SHELL_OPTS)
 
 DOCKER_SUBDIR		+= devel
 
 ################################################################################
 
+# Docker Compose file version:
+# - docker: 3.3
+# - docker-compose: 3.3
 DOCKER_VERSION		?= 17.06.0-ce
+DOCKER_COMPOSE_VERSION	?= 1.15.0
 
 ################################################################################
 
-.PHONY: all build rebuild deploy run up destroy down rm start stop restart
-.PHONY: status logs shell refresh test clean clean-all
+.PHONY: all info clean clean-all
+.PHONY: build rebuild deploy run up destroy down rm start stop restart
+.PHONY: status logs shell test
 
-all: destroy build deploy logs test
+all: destroy build test
+info: docker-info github-info
 build: docker-build
 rebuild: docker-rebuild
 deploy run up: docker-deploy
@@ -42,14 +51,9 @@ status: docker-status
 logs: docker-logs
 logs-tail: docker-logs-tail
 shell: docker-shell
-refresh: docker-refresh
-test: docker-test
+test: start docker-test
 clean: destroy docker-clean
-clean-all:
-	@for SUBDIR in . $(DOCKER_SUBDIR); do \
-		cd $(abspath $(DOCKER_HOME_DIR))/$${SUBDIR}; \
-		$(MAKE) clean; \
-	done
+clean-all: ; @$(MAKE) docker-all TARGET=clean
 
 ################################################################################
 

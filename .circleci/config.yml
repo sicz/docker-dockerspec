@@ -3,16 +3,16 @@ jobs:
   build:
     docker:
       - image: sicz/dockerspec@sha256:fcc2eb828bc8ba898af410b46484725e424b9851d580278f5a2c4abdec5e5780
-    working_directory: ~/docker-dockerspec
     environment:
       - MAKEFLAGS=--no-print-directory
     steps:
-      - run:
-          name: Set up Environment
-          command: |
-            curl -sSL https://github.com/SICZ/Mk/archive/master.tar.gz | tar -xzf -
-            mv Mk-master ~/Mk
       - checkout
+      - run:
+          name: Checkout make files
+          command: |
+            cd ..
+            curl -sSL https://github.com/SICZ/Mk/archive/master.tar.gz | tar -xzf -
+            mv Mk-master Mk
       - setup_remote_docker:
           version: 17.06.0-ce
       - run:
@@ -20,23 +20,23 @@ jobs:
           command: |
             docker version
       - run:
-          name: Build and test latest Docker image
+          name: Build and test latest image
           command: |
-            make ci-rebuild-and-test DOCKER_TEST_CMD=rspec DOCKER_RSPEC_FORMAT=doc
+            make ci-rebuild-and-test DOCKER_TEST_IMAGE=
       - run:
-          name: Build and test development Docker image
+          name: Build and test development image
           working_directory: devel
           command: |
-            make ci-rebuild-and-test DOCKER_TEST_CMD=rspec DOCKER_RSPEC_FORMAT=doc
+            make ci-rebuild-and-test DOCKER_TEST_IMAGE=
       - deploy:
-          name: Push latest Docker image to Docker Hub
+          name: Push latest image to Docker Hub
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWD}
               make docker-push
             fi
       - deploy:
-          name: Push development Docker image to Docker Hub
+          name: Push development image to Docker Hub
           working_directory: devel
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then

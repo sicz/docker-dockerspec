@@ -4,8 +4,7 @@
 *~
 
 # Info about running containers
-.container_id
-
+.container_*
 
 # Local Makefile
 docker.local.mk

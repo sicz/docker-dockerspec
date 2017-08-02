@@ -1,11 +1,20 @@
 ################################################################################
 
-# BASEIMAGE_TAG		= edge
-DOCKER_TAGS		= devel
+# BASEIMAGE_TAG		?= 3.6
+# DOCKER_TAG		?= 3.6-devel
+DOCKER_TAGS		?= devel
 
 ################################################################################
 
-DOCKER_HOME_DIR		= ..
+# Docker Compose file version:
+# - docker: 3.3
+# - docker-compose: 3.3
+# DOCKER_VERSION		?= 17.06.0-ce
+# DOCKER_COMPOSE_VERSION	?= 1.15.0
+
+################################################################################
+
+DOCKER_HOME_DIR		?= ..
 include $(DOCKER_HOME_DIR)/Makefile
 
 ################################################################################
