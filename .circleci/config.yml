@@ -33,9 +33,11 @@ jobs:
       - run:
           name: sicz/dockerspec:devel
           working_directory: devel
+          # We can not do a docker-pull-image because if the devel version is
+          # the same as the latest version, the newly-built image of the latest
+          # version will be overwritten.
           command: |
             make docker-pull-dependencies
-            make docker-pull-image
             make ci
       - deploy:
           name: Push images to the Docker Hub
