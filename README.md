@@ -1,83 +1,87 @@
 # docker-dockerspec
 
-[![CircleCI Status Badge](https://circleci.com/gh/sicz/docker-dockerspec.svg?style=shield&circle-token=5b2ef1ced1877b03440694e44544e33b70ba74ce)](https://circleci.com/gh/sicz/docker-dockerspec)
+[![CircleCI Status Badge](https://circleci.com/gh/sicz/docker-dockerpec.svg?style=shield&circle-token=5b2ef1ced1877b03440694e44544e33b70ba74ce)](https://circleci.com/gh/sicz/docker-dockerspec)
 
 **This project is not aimed at public consumption.
-It exists to support the development of SICZ containers.**
+It exists to serve as a single endpoint for SICZ containers.**
 
 An image intended to run Docker image tests using RSpec and ServerSpec.
 
 ## Contents
 
-This container only contains essential components:
-* Official [Alpine Linux image](https://store.docker.com/images/alpine) as base system
-* Modular [Docker entrypoint](https://github.com/sicz/docker-entrypoint)
-* [Docker](https://www.docker.com) provides Docker command line tools
-* [RSpec](http://rspec.info) provides Ruby testing framework
-* [ServerSpec](http://serverspec.org) provides server testing framework for RSpec
+This image contains tools for testing Docker images:
+* [sicz/baseimage-alpine](https://github.com/sicz/docker-baseimage-alpine)
+  as a base image.
+* [Docker](https://docs.docker.com/engine/) provides a Docker command line tools
+  and engine
+* [Docker Compose](https://docs.docker.com/compose/) provides a Docker Compose
+  command line tools
+* [RSpec](http://rspec.info) provides a Ruby testing framework
+* [ServerSpec](http://serverspec.org) provides a server testing framework for
+  RSpec
+* [Docker API](https://github.com/swipely/docker-api) provides an interface for
+  Docker Remote API
 <!--
-* [DockerSpec](https://github.com/zuazo/dockerspec) provides Docker plugin for ServerSpec
+* [Dockerspec](https://github.com/zuazo/dockerspec) provides Docker plugin for ServerSpec
 -->
-* `bash` as shell
-* `ca-certificates` contains common CA certificates
-* `curl` for transferring data using various protocols
-* `jq` for JSON data parsing
-* `libressl` for PKI and TLS
-* `runit` for service supervision and management
-* `su_exec` for process impersonation
-* `tini` as init process
-
 ## Getting started
 
 These instructions will get you a copy of the project up and running on your
-local machine for development and testing purposes. See deployment for notes
-on how to deploy the project on a live system.
+local machine for development and testing purposes. See [Deployment](#deployment)
+for notes on how to deploy the project on a live system.
 
 ### Installing
 
-Clone GitHub repository to your working directory:
+Clone the GitHub repository into your working directory:
 ```bash
 git clone https://github.com/sicz/docker-dockerspec
 ```
 
 ### Usage
 
-Use command `make` to simplify Docker container development tasks:
+Use the command `make` to simplify the Docker image development tasks:
 ```bash
-make all        # Destroy running container, build new image and run tests
-make build      # Build new image
-make refresh    # Refresh Dockerfile
-make rebuild    # Build new image without caching
-make run        # Run container
-make stop       # Stop running container
-make start      # Start stopped container
-make restart    # Restart container
-make status     # Show container status
-make logs       # Show container logs
-make logs-tail  # Connect to container logs
-make shell      # Open shell in running container
-make test       # Run tests
-make rm         # Destroy running container
-make clean      # Destroy running container and clean
+make all                # Build a new image and run the tests
+make ci                 # Build a new image and run the tests
+make build              # Build a new image
+make rebuild            # Build a new image without using the Docker layer caching
+make config-file        # Display the configuration file for the current configuration
+make vars               # Display the make variables for the current configuration
+make up                 # Remove the containers and then run them fresh
+make create             # Create the containers
+make start              # Start the containers
+make stop               # Stop the containers
+make restart            # Restart the containers
+make rm                 # Remove the containers
+make wait               # Wait for the start of the containers
+make ps                 # Display running containers
+make logs               # Display the container logs
+make logs-tail          # Follow the container logs
+make shell              # Run the shell in the container
+make test               # Run the tests
+make test-shell         # Run the shell in the test container
+make secrets            # Create the Simple CA secrets
+make clean              # Remove all containers and work files
+make docker-pull        # Pull all images from the Docker Registry
+make docker-pull-dependencies # Pull the project image dependencies from the Docker Registry
+make docker-pull-image  # Pull the project image from the Docker Registry
+make docker-pull-testimage # Pull the test image from the Docker Registry
+make docker-push        # Push the project image into the Docker Registry
 ```
 
 ## Deployment
 
-At first init RSpec configuration for your project:
+You can test your container with commands:
 ```bash
-docker run \
-  -v ${PWD}:/root \
-  -w /root \
+cd MY_IMAGE
+docker run -d --name=my_container MY_IMAGE
+docker run -t \
+  -e CONTAINER_NAME=my_container \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v $PWD:/root/project \
+  -w /root/project \
   --rm \
-  sicz/dockerspec --init
-```
-and create your tests in `spec` directory. For inspiration you can look at our
-[Docker projects at GitHub](https://github.com/sicz).
-
-With [sicz/Mk](https://github.com/sicz/Mk) you can test your Docker image with
-simple command:
-```bash
-make test
+  sicz/dockerspec --format=doc
 ```
 
 ## Authors
@@ -92,8 +96,3 @@ who participated in this project.
 
 This project is licensed under the Apache License, Version 2.0 - see the
 [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-This Docker image was inspired by
-[Test Driven Development of Dockerfile](https://github.com/tcnksm-sample/test-driven-development-dockerfile).

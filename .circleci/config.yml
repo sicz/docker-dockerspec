@@ -2,44 +2,46 @@ version: 2
 jobs:
   build:
     docker:
-      - image: sicz/dockerspec@sha256:fcc2eb828bc8ba898af410b46484725e424b9851d580278f5a2c4abdec5e5780
+      - image: sicz/dockerspec@sha256:5f1324c5ec967301a4cb764d3e97a90605281fe38a7c94ec3e9b09d3354cbd30
     environment:
       - MAKEFLAGS=--no-print-directory
+      - RSPEC_FORMAT=doc
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 17.06.0-ce
+      - run:
+          name: Remote Docker engine version and images
+          command: |
+            docker --version
+            docker-compose --version
+            docker image ls
       - run:
           name: Checkout make files
           command: |
             cd ..
             curl -sSL https://github.com/SICZ/Mk/archive/master.tar.gz | tar -xzf -
             mv Mk-master Mk
-      - setup_remote_docker:
-          version: 17.06.0-ce
       - run:
-          name: Remote Docker engine version
+          # The latest Dockerspec image must be built first because it will be
+          # used to test itself and the subsequent images
+          name: sicz/dockerspec:latest
+          working_directory: dockerspec
           command: |
-            docker version
+            make docker-pull-dependencies
+            make docker-pull-image
+            make ci
       - run:
-          name: Build and test latest image
+          name: sicz/dockerspec:devel
+          working_directory: dockerspec/devel
           command: |
-            make ci-rebuild-and-test DOCKER_TEST_IMAGE=
-      - run:
-          name: Build and test development image
-          working_directory: devel
-          command: |
-            make ci-rebuild-and-test DOCKER_TEST_IMAGE=
+            make docker-pull-dependencies
+            make docker-pull-image
+            make ci
       - deploy:
-          name: Push latest image to Docker Hub
+          name: Push images to the Docker Hub
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWD}
-              make docker-push
-            fi
-      - deploy:
-          name: Push development image to Docker Hub
-          working_directory: devel
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWD}
-              make docker-push
+              make docker-push-all
             fi

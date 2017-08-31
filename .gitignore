@@ -4,7 +4,4 @@
 *~
 
 # Info about running containers
-.container_*
-
-# Local Makefile
-docker.local.mk
+.docker-*
