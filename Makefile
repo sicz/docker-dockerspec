@@ -79,7 +79,7 @@ export BUILD_TARGETS_MAKE_VARS
 # Make targets propagated to all Docker image versions
 DOCKER_ALL_VERSIONS_TARGETS += build rebuild ci clean
 
-### MAKE_TARGETS #############################################################
+### MAKE_TARGETS ###############################################################
 
 # Build a new image and run tests for current configuration
 .PHONY: all
