@@ -54,6 +54,11 @@ DOCKER_EXECUTOR		?= compose
 # Use the same service name for all configurations
 SERVICE_NAME		?= container
 
+### TEST #######################################################################
+
+# Use itself version for tests
+TEST_IMAGE_TAG		?= $(DOCKER_IMAGE_TAG)
+
 ### MAKE_VARS ##################################################################
 
 # Display the make variables
