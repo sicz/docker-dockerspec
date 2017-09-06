@@ -13,8 +13,7 @@ jobs:
       - run:
           name: Remote Docker engine version and images
           command: |
-            docker --version
-            docker-compose --version
+            docker version
             docker image ls
       - run:
           name: Checkout make files
@@ -33,5 +32,5 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWD}
-              make docker-push-all
+              make docker-push
             fi
