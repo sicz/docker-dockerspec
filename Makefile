@@ -12,10 +12,6 @@ DOCKER_PROJECT_URL	?= http://serverspec.org
 DOCKER_IMAGE_TAG	?= 1.0.0
 DOCKER_IMAGE_TAGS	?= latest
 
-### DOCKER_VERSIONS ############################################################
-
-DOCKER_VERSIONS		?= latest devel
-
 ### BUILD ######################################################################
 
 # Docker image build variables
