@@ -60,7 +60,6 @@ make logs-tail          # Follow the container logs
 make shell              # Run the shell in the container
 make test               # Run the tests
 make test-shell         # Run the shell in the test container
-make secrets            # Create the Simple CA secrets
 make clean              # Remove all containers and work files
 make docker-pull        # Pull all images from the Docker Registry
 make docker-pull-dependencies # Pull the project image dependencies from the Docker Registry
