@@ -28,11 +28,6 @@ jobs:
           name: sicz/dockerspec:latest
           command: |
             make ci
-      - run:
-          name: sicz/dockerspec:devel
-          working_directory: devel
-          command: |
-            make ci
       - deploy:
           name: Push images to the Docker Hub
           command: |
