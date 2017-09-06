@@ -39,7 +39,20 @@ git clone https://github.com/sicz/docker-dockerspec
 
 ### Usage
 
-Use the command `make` to simplify the Docker image development tasks:
+Use the command `make` in the project directory:
+```bash
+make all                          # Build and test all Docker images
+make build                        # Build all Docker images
+make rebuild                      # Rebuild all Docker images
+make clean                        # Remove all containers and clean work files
+make docker-pull                  # Pull all images from Docker Registry
+make docker-pull-dependencies     # Pull all image dependencies from Docker Registry
+make docker-pull-image            # Pull all project images from Docker Registry
+make docker-pull-testimage        # Pull all project images from Docker Registry
+make docker-push                  # Push all project images to Docker Registry
+```
+
+Use the command `make` in the image version directories:
 ```bash
 make all                # Build a new image and run the tests
 make ci                 # Build a new image and run the tests
