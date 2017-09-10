@@ -22,8 +22,6 @@ jobs:
             curl -sSL https://github.com/SICZ/Mk/archive/master.tar.gz | tar -xzf -
             mv Mk-master Mk
       - run:
-          # The latest Dockerspec image must be built first because it will be
-          # used to test itself and the subsequent images
           name: sicz/dockerspec:latest
           command: |
             make ci
