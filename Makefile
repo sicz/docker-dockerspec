@@ -53,7 +53,7 @@ TEST_IMAGE_TAG		?= $(DOCKER_IMAGE_TAG)
 
 # Build a new image and run tests for current configuration
 .PHONY: all
-all: build clean start wait logs test
+all: clean build start wait logs test
 
 # Build a new image and run tests for all configurations
 .PHONY: ci
