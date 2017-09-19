@@ -41,9 +41,6 @@ GEM_SERVERSPEC_VERSION	?= 2.40.0
 # Use the Docker Compose executor
 DOCKER_EXECUTOR		?= compose
 
-# Use the same service name for all configurations
-SERVICE_NAME		?= container
-
 ### TEST #######################################################################
 
 # Use itself version for tests

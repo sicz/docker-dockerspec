@@ -5,7 +5,7 @@
 version: "3.3"
 
 services:
-  container:
+  dockerspec:
     image: ${DOCKER_IMAGE}
     # Listen on TCP port 7 (Echo Protocol) and mirror input to output
     command: /usr/bin/ncat -l 7 -k -c /bin/cat
@@ -17,20 +17,20 @@ services:
     networks:
       default:
         aliases:
-          - container.local
+          - dockerspec.local
 
   test:
     image: ${TEST_IMAGE}
     command: ${TEST_CMD}
     depends_on:
-      - container
+      - dockerspec
     env_file:
       - ${TEST_ENV_FILE}
     environment:
       - DOCKER_ENTRYPOINT_DEBUG=true
       - DOCKER_ENTRYPOINT_INFO=true
       # Wait until the tested container is started
-      - WAIT_FOR_TCP=container.local:7
+      - WAIT_FOR_TCP=dockerspec.local:7
       - WAIT_FOR_TIMEOUT=5
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -41,12 +41,12 @@ services:
   wait:
     image: ${TEST_IMAGE}
     depends_on:
-      - container
+      - dockerspec
     environment:
       - DOCKER_ENTRYPOINT_DEBUG=true
       - DOCKER_ENTRYPOINT_INFO=true
       # Wait until the tested container is started
-      - WAIT_FOR_TCP=container.local:7
+      - WAIT_FOR_TCP=dockerspec.local:7
       - WAIT_FOR_TIMEOUT=5
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
