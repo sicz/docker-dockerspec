@@ -27,6 +27,9 @@ ARG GEM_RSPEC_VERSION
 ARG GEM_SPECINFRA_VERSION
 ARG GEM_SERVERSPEC_VERSION
 
+ENV \
+  DOCKER_COMMAND="/usr/bin/rspec"
+
 RUN set -exo pipefail; \
   # Install the packages
   apk add --no-cache \
@@ -67,5 +70,3 @@ RUN set -exo pipefail; \
     serverspec \
     ; \
   rm -rf /root/.cache /root/.gem
-
-ENV DOCKER_COMMAND="/usr/bin/rspec"
