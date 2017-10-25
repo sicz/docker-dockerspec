@@ -9,7 +9,7 @@ DOCKER_NAME		?= dockerspec
 DOCKER_PROJECT_DESC	?= An image intended to run Docker image tests using RSpec and ServerSpec
 DOCKER_PROJECT_URL	?= http://serverspec.org
 
-DOCKER_IMAGE_TAG	?= 1.0.0
+DOCKER_IMAGE_TAG	?= 1.0.1
 DOCKER_IMAGE_TAGS	?= latest
 
 ### BUILD ######################################################################
@@ -32,7 +32,7 @@ DOCKER_COMPOSE_VERSION	?= 1.15.0
 RUBY_VERSION		?= 2.4.2
 
 GEM_DOCKER_API_VERSION	?= 1.33.6
-GEM_RSPEC_VERSION	?= 3.6.0
+GEM_RSPEC_VERSION	?= 3.7.0
 GEM_SPECINFRA_VERSION	?= 2.71.1
 GEM_SERVERSPEC_VERSION	?= 2.41.1
 
