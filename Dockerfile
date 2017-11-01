@@ -35,6 +35,10 @@ RUN set -exo pipefail; \
   apk add --no-cache \
     git \
     make \
+    nmap \
+    nmap-nping \
+    nmap-nselibs \
+    nmap-scripts \
     openssh-client \
     python2 \
     "ruby>${RUBY_VERSION}" \

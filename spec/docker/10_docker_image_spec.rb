@@ -31,6 +31,10 @@ describe "Docker image", :test => :docker_image do
     packages = [
       "git",
       "make",
+      "nmap",
+      "nmap-nping",
+      "nmap-nselibs",
+      "nmap-scripts",
       "openssh-client",
       ["ruby",                    ENV["RUBY_VERSION"]],
       ["ruby-io-console",         ENV["RUBY_VERSION"]],
