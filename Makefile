@@ -1,7 +1,7 @@
 ### BASE_IMAGE #################################################################
 
 BASE_IMAGE_NAME		?= $(DOCKER_PROJECT)/baseimage-alpine
-BASE_IMAGE_TAG		?= 3.6
+BASE_IMAGE_TAG		?= 3.7
 
 ### DOCKER_IMAGE ###############################################################
 
@@ -25,16 +25,16 @@ BUILD_VARS		+= DOCKER_VERSION \
 
 # Supported Docker Compose file versions:
 # - docker-17.06.0: 3.3
-# - docker-compose-1.15.0: 3.3
+# - docker-compose-1.18.0: 3.5
 DOCKER_VERSION		?= 17.06.1-ce
-DOCKER_COMPOSE_VERSION	?= 1.15.0
+DOCKER_COMPOSE_VERSION	?= 1.18.0
 
-RUBY_VERSION		?= 2.4.2
+RUBY_VERSION		?= 2.4.3
 
-GEM_DOCKER_API_VERSION	?= 1.33.6
+GEM_DOCKER_API_VERSION	?= 1.34.0
 GEM_RSPEC_VERSION	?= 3.7.0
-GEM_SPECINFRA_VERSION	?= 2.71.1
-GEM_SERVERSPEC_VERSION	?= 2.41.1
+GEM_SPECINFRA_VERSION	?= 2.73.0
+GEM_SERVERSPEC_VERSION	?= 2.41.3
 
 ### DOCKER_EXECUTOR ############################################################
 
