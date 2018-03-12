@@ -24,16 +24,16 @@ BUILD_VARS		+= DOCKER_VERSION \
 			   RUBY_VERSION
 
 # Supported Docker Compose file versions:
-# - docker-17.06.0: 3.3
-# - docker-compose-1.18.0: 3.5
-DOCKER_VERSION		?= 17.06.1-ce
-DOCKER_COMPOSE_VERSION	?= 1.18.0
+# - docker-17.12.1-ce: 3.5
+# - docker-compose-1.19.0: 3.5
+DOCKER_VERSION		?= 17.12.1-ce
+DOCKER_COMPOSE_VERSION	?= 1.19.0
 
 RUBY_VERSION		?= 2.4.3
 
-GEM_DOCKER_API_VERSION	?= 1.34.0
+GEM_DOCKER_API_VERSION	?= 1.34.1
 GEM_RSPEC_VERSION	?= 3.7.0
-GEM_SPECINFRA_VERSION	?= 2.73.0
+GEM_SPECINFRA_VERSION	?= 2.73.2
 GEM_SERVERSPEC_VERSION	?= 2.41.3
 
 ### DOCKER_EXECUTOR ############################################################
