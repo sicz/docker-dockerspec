@@ -1,6 +1,6 @@
 # docker-dockerspec
 
-[![CircleCI Status Badge](https://circleci.com/gh/sicz/docker-dockerpec.svg?style=shield&circle-token=5b2ef1ced1877b03440694e44544e33b70ba74ce)](https://circleci.com/gh/sicz/docker-dockerspec)
+[![CircleCI Status Badge](https://circleci.com/gh/sicz/docker-dockerspec.svg?style=shield&circle-token=5b2ef1ced1877b03440694e44544e33b70ba74ce)](https://circleci.com/gh/sicz/docker-dockerspec)
 
 **This project is not aimed at public consumption.
 It exists to serve as a single endpoint for SICZ containers.**
