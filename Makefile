@@ -1,7 +1,7 @@
 ### BASE_IMAGE #################################################################
 
 BASE_IMAGE_NAME		?= $(DOCKER_PROJECT)/baseimage-alpine
-BASE_IMAGE_TAG		?= 3.7
+BASE_IMAGE_TAG		?= 3.8
 
 ### DOCKER_IMAGE ###############################################################
 
@@ -9,7 +9,7 @@ DOCKER_NAME		?= dockerspec
 DOCKER_PROJECT_DESC	?= An image intended to run Docker image tests using RSpec and ServerSpec
 DOCKER_PROJECT_URL	?= http://serverspec.org
 
-DOCKER_IMAGE_TAG	?= 1.0.3
+DOCKER_IMAGE_TAG	?= 1.1.0
 DOCKER_IMAGE_TAGS	?= latest
 
 ### BUILD ######################################################################
@@ -24,16 +24,16 @@ BUILD_VARS		+= DOCKER_VERSION \
 			   RUBY_VERSION
 
 # Supported Docker Compose file versions:
-# - docker-17.12.1-ce: 3.5
-# - docker-compose-1.19.0: 3.5
-DOCKER_VERSION		?= 17.12.1-ce
-DOCKER_COMPOSE_VERSION	?= 1.19.0
+# - docker-18.03.1: 3.6
+# - docker-compose-1.21.1: 3.6
+DOCKER_VERSION		?= 18.03.1-ce
+DOCKER_COMPOSE_VERSION	?= 1.21.1
 
-RUBY_VERSION		?= 2.4.4
+RUBY_VERSION		?= 2.5.1
 
 GEM_DOCKER_API_VERSION	?= 1.34.2
 GEM_RSPEC_VERSION	?= 3.7.0
-GEM_SPECINFRA_VERSION	?= 2.73.2
+GEM_SPECINFRA_VERSION	?= 2.75.0
 GEM_SERVERSPEC_VERSION	?= 2.41.3
 
 ### DOCKER_EXECUTOR ############################################################

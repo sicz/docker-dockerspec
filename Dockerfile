@@ -34,16 +34,20 @@ RUN set -exo pipefail; \
   mv /tmp/docker/* /usr/bin; \
   rm -rf /tmp/docker; \
   docker --version; \
-  # Install Docker Compose
+  # Install build dependencies
   apk add --no-cache --virtual .build-dependencies \
+    gcc \
+    musl-dev \
     py2-pip \
+    ruby-dev \
     ; \
+  # Install Docker Compose
   pip install --upgrade pip; \
   pip install docker-compose==${DOCKER_COMPOSE_VERSION}; \
-  apk del --no-cache .build-dependencies; \
   docker-compose --version; \
   # Install rspec and serverspec
   gem install \
+    etc \
     docker-api:${GEM_DOCKER_API_VERSION} \
     rspec:${GEM_RSPEC_VERSION} \
     specinfra:${GEM_SPECINFRA_VERSION} \
@@ -55,4 +59,6 @@ RUN set -exo pipefail; \
     specinfra \
     serverspec \
     ; \
-  rm -rf /root/.cache /root/.gem
+  rm -rf /root/.cache /root/.gem; \
+  # Remove build dependencies
+  apk del --no-cache .build-dependencies
